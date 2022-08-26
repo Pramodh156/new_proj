@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    imagename = "pramodh156/maven"
+    imagename = "pramodh156/maven1"
     registryCredential = 'pramodh156-dockerhub'
     dockerImage = ''
   }
@@ -33,7 +33,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-            dockerImage.run("-p 8097:8080 --rm --name pramodh156")
+            dockerImage.run("-p 8090:8080 --rm --name pramodh156")
          }
      }
     }
