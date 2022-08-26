@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    imagename = "pramodh156/maven1"
+    imagename = "pramodh156/maven5"
     registryCredential = 'pramodh156-dockerhub'
     dockerImage = ''
   }
@@ -8,18 +8,18 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git([url: 'https://github.com/Pramodh156/test.git', branch: 'main', credentialsId: 'Pramodh156-github-user-token'])
+        git([url: 'https://github.com/Pramodh156/new_proj.git', branch: 'main', credentialsId: 'Pramodh156-github-user-token'])
 
       }
     }
-    stage('Building image') {
+    stage('Building Custom Image') {
       steps{
         script {
           dockerImage = docker.build imagename
         }
       }
     }
-    stage('Deploy Image') {
+    stage('Deploy Custom Image') {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -30,10 +30,10 @@ pipeline {
         }
       }
     }
-    stage('Docker Run') {
+    stage('Docker Deploy to Tomcat') {
      steps{
          script {
-            dockerImage.run("-p 8090:8080 --rm --name pramodh156")
+            dockerImage.run("-p 8097:8080 --rm --name pramodh10")
          }
      }
     }
@@ -45,4 +45,4 @@ pipeline {
       }
     }
   }
-}
+}   
