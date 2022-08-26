@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git([url: 'https://github.com/Pramodh156/new_proj.git', branch: 'main', credentialsId: 'Pramodh156-github-user-token'])
+        git([url: 'https://github.com/Pramodh156/test.git', branch: 'main', credentialsId: 'Pramodh156-github-user-token'])
 
       }
     }
@@ -30,6 +30,13 @@ pipeline {
         }
       }
     }
+    stage('Docker Run') {
+     steps{
+         script {
+            dockerImage.run("-p 8097:8080 --rm --name pramodh156")
+         }
+     }
+    }
     stage('Remove Unused docker image') {
       steps{
         sh "docker rmi $imagename:$BUILD_NUMBER"
@@ -39,4 +46,3 @@ pipeline {
     }
   }
 }
-   
